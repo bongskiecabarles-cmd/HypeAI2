@@ -7,19 +7,135 @@
   <meta name="keywords" content="Roblox Studio, Roblox, YouTube, Teleprompter, AI">
   <style>
     body {
+      margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #e3f2fd, #fce4ec);
-      padding: 20px;
+      background: linear-gradient(to right, #2196f3, #e91e63);
+      color: #333;
     }
     #chatbox {
-      width: 100%;
       max-width: 600px;
-      margin: auto;
+      margin: 50px auto;
       background: #fff;
-      padding: 20px;
       border-radius: 12px;
-      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+      box-shadow: 0 0 12px rgba(0,0,0,0.2);
+      padding: 20px;
     }
     h1 {
       text-align: center;
-      color: #7e
+      color: #7e57c2;
+      margin-bottom: 0;
+    }
+    h2 {
+      text-align: center;
+      font-weight: normal;
+      margin-top: 5px;
+      color: #555;
+    }
+    #messages {
+      max-height: 400px;
+      overflow-y: auto;
+      margin-bottom: 15px;
+    }
+    .message {
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 10px;
+      max-width: 80%;
+    }
+    .user {
+      background-color: #bbdefb;
+      text-align: right;
+      margin-left: auto;
+    }
+    .bot {
+      background-color: #e0e0e0;
+      text-align: left;
+      margin-right: auto;
+    }
+    input[type="text"] {
+      width: 70%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      padding: 10px 15px;
+      background-color: #7e57c2;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #5e35b1;
+    }
+    #loading {
+      display: none;
+      text-align: center;
+      margin-top: 10px;
+    }
+    .star-loader {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, blue, purple, blue);
+      animation: spin 1s linear infinite;
+      margin: auto;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div id="chatbox">
+    <h1>HypeAI</h1>
+    <h2>Meet HypeAI¹!</h2>
+    <div id="messages">
+      <div class="message bot"><strong>HypeAI:</strong> Hello! I am HypeAI! Your Only HypeHype10 Helper! Start off by making Roblox Studio scripts, or images</div>
+    </div>
+    <input type="text" id="userInput" placeholder="Ask me anything..." />
+    <button onclick="sendMessage()">Send</button>
+    <div id="loading"><div class="star-loader"></div></div>
+  </div>
+
+  <script>
+    function sendMessage() {
+      const input = document.getElementById("userInput");
+      const userText = input.value.trim();
+      if (!userText) return;
+
+      const messages = document.getElementById("messages");
+      messages.innerHTML += `<div class="message user"><strong>You:</strong> ${userText}</div>`;
+
+      showLoading();
+
+      setTimeout(() => {
+        const botReply = getBotResponse(userText);
+        messages.innerHTML += `<div class="message bot"><strong>HypeAI:</strong> ${botReply}</div>`;
+        input.value = "";
+        hideLoading();
+        messages.scrollTop = messages.scrollHeight;
+      }, 1000);
+    }
+
+    function getBotResponse(input) {
+      input = input.toLowerCase();
+      if (input.includes("roblox")) return "Let's get scripting! Want a GUI, a teleport script, or something else?";
+      if (input.includes("youtube")) return "Need help with video ideas or teleprompter scripts?";
+      if (input.includes("teleprompter")) return "I can help you write smooth, hype-ready intros!";
+      if (input.includes("image")) return "Want to generate a thumbnail or a logo? Describe what you need!";
+      if (input.includes("hello")) return "Hey hey! Ready to hype up your creative projects?";
+      return "I'm here to hype you up! Try asking about Roblox Studio, YouTube, or image creation!";
+    }
+
+    function showLoading() {
+      document.getElementById("loading").style.display = "block";
+    }
+
+    function hideLoading() {
+      document.getElementById("loading").style.display = "none";
+    }
+  </script>
+</body>
+  </html>
